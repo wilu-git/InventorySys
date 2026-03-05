@@ -26,5 +26,16 @@ namespace InventorySys.Services.Products
         {
             return await _repo.GetAllProducts();
         }
+
+        public async Task ReduceStock(int productId, int quantity)
+        {
+            var product = await _repo.GetProductById(productId);
+            if (product == null)
+                throw new Exception("Product not found");
+            if (product.Stock < quantity)
+                throw new Exception("Insufficient stock");
+            product.Stock -= quantity;
+            await _repo.AddProduct(product); // Assuming AddProduct updates if the product already exists
+        }
     }
 }

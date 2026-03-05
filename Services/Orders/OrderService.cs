@@ -22,7 +22,7 @@ namespace InventorySys.Services.Orders
                 throw new Exception();
             }
             else
-            {
+            { 
                 await _orderRepository.AddOrder(order);
             }
         }
